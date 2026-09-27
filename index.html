@@ -401,6 +401,11 @@ section[id],footer{scroll-margin-top:84px}
 .bot__ask input:focus{outline:none;border-color:var(--caramel)}
 .bot__send{width:44px;height:44px;flex:none;border:0;border-radius:50%;background:var(--caramel);color:#160F09;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .2s var(--ease)}
 .bot__send:hover{background:#EBA463}
+
+/* цели под палец: в подвале ссылки были высотой 20 px, палец промахивался */
+@media(max-width:760px){
+  footer a, .ftr a, .foot a{display:inline-flex;align-items:center;min-height:44px}
+}
 </style>
 </head>
 <body>
