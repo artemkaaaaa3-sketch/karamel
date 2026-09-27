@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Карамель, парикмахерская в Пскове. Стрижки, окрашивание, уход</title>
-<meta name="description" content="Парикмахерская «Карамель» в Пскове. Цена и время известны до записи. Стрижки от 900 ₽, окрашивание от 2200 ₽. Пн-Вс, 9:00-21:00.">
+<meta name="description" content="Парикмахерская «Карамель» в Пскове: цену и время называем до записи. Стрижки от 900 ₽, окрашивание от 2200 ₽, работаем без выходных с 9:00 до 21:00.">
 <meta name="theme-color" content="#100C09">
 <!-- ЗАГЛУШКА: строку ниже убрать перед публикацией на боевом домене -->
 <meta name="robots" content="noindex, nofollow">
@@ -34,6 +34,17 @@
   --text:"Wix Madefor Text",-apple-system,"Segoe UI",Roboto,sans-serif;
 
   --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px;
+  /* шкала кеглей: шесть ступеней, соседние отличаются от 1,17 раза.
+     f1 метки, f2 мелкий текст и кнопки в шапке, f3 основной текст,
+     f4 подзаголовки и числа, f5 заголовки секций и меню, f6 первый экран */
+  /* до 390 px ступени опускаются на шаг: в колонке 350 px основной текст
+     кеглем 17 ложился по 29 знаков при норме от 30 */
+  --f1:clamp(11px,2.82vw,12px);
+  --f2:clamp(13px,3.33vw,14px);
+  --f3:clamp(16px,4.1vw,17px);
+  --f4:clamp(21px,2.1vw,26px);
+  --f5:clamp(31px,4.2vw,52px);
+  --f6:clamp(38px,6.4vw,80px);
   --radius:4px;
   --shell:1200px;
   --pad:clamp(20px,5vw,56px);
@@ -44,22 +55,29 @@
 [hidden]{display:none !important}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;color-scheme:dark}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* под липкой шапкой и нижней панелью фокус с клавиатуры уезжал под них */
+html{scrollbar-gutter:stable;scroll-padding-top:96px;scroll-padding-bottom:104px}
 body{
   margin:0;background:var(--sugar);color:var(--cream);
-  font:400 clamp(16px,1.02vw,17px)/1.55 var(--text);
+  font:400 var(--f3)/1.5 var(--text);
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
 img,video{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit;color:inherit}
 button,a,summary,label,input,select,textarea{touch-action:manipulation;-webkit-tap-highlight-color:rgba(222,147,80,.18)}
-h1,h2,h3,h4{margin:0;font-weight:400;font-family:var(--display);line-height:1.12;letter-spacing:-.012em}
+h1,h2,h3,h4{margin:0;font-weight:400;font-family:var(--display);line-height:1.12;letter-spacing:-.012em;text-wrap:balance}
+/* последняя строка из одного слова: перенос подбирает браузер */
+p,li,blockquote,figcaption,dd,summary{text-wrap:pretty}
 p{margin:0}
 ul,ol{margin:0;padding:0;list-style:none}
 :focus-visible{outline:2px solid var(--caramel);outline-offset:3px;border-radius:2px}
 ::selection{background:var(--caramel);color:#160F09}
-.skip{position:absolute;left:12px;clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap;top:12px;z-index:90;padding:12px 20px;background:var(--caramel);color:#160F09;border-radius:var(--radius);font-weight:600}
-.skip:focus{clip-path:none;width:auto;height:auto}
+.nowrap{white-space:nowrap}
+/* ссылка-пропуск уезжает за верхний край целой коробкой, а не схлопывается
+   в точку: при схлопывании её центр попадал под липкую шапку */
+.skip{position:fixed;left:12px;top:12px;z-index:200;padding:12px 20px;background:var(--caramel);color:#160F09;border-radius:var(--radius);font-weight:600;white-space:nowrap;transform:translateY(-200%);transition:transform .2s var(--ease)}
+.skip:focus{transform:none}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* ============ ПРИМИТИВЫ ============ */
@@ -68,19 +86,19 @@ section[id],footer{scroll-margin-top:84px}
 .band{padding-block:var(--band)}
 .tag{
   display:inline-flex;align-items:center;gap:9px;margin-bottom:var(--s2);
-  font-size:0.7rem;font-weight:600;letter-spacing:.19em;text-transform:uppercase;color:var(--caramel);
+  font-size:var(--f1);font-weight:600;letter-spacing:.19em;text-transform:uppercase;color:var(--caramel);
 }
 .tag::before{content:"";width:22px;height:1px;background:var(--caramel);opacity:.6}
-.h2{font-size:clamp(2rem,4.2vw,3.3rem);text-wrap:balance;max-width:19ch}
-.lede{margin-top:var(--s2);color:var(--cream-dim);font-size:1rem;max-width:46ch}
+.h2{font-size:var(--f5);text-wrap:balance;max-width:19ch}
+.lede{margin-top:var(--s2);color:var(--cream-dim);font-size:var(--f3);max-width:46ch}
 .sec-head{margin-bottom:clamp(36px,5vw,60px)}
 
 .btn{
   --btn-bg:var(--caramel); --btn-fg:#160F09;
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
   min-height:52px;padding:0 30px;border:1px solid transparent;border-radius:var(--radius);
-  background:var(--btn-bg);color:var(--btn-fg);white-space:nowrap;
-  font-weight:600;font-size:1rem;cursor:pointer;
+  background:var(--btn-bg);color:var(--btn-fg);white-space:normal;text-align:center;
+  font-weight:600;font-size:var(--f3);cursor:pointer;
   transition:background .22s var(--ease),border-color .22s var(--ease),transform .18s var(--ease);
 ;max-width:100%;text-align:center;line-height:1.25;padding-block:14px}
 .btn:hover{background:#EBA463}
@@ -94,12 +112,15 @@ section[id],footer{scroll-margin-top:84px}
 .top__in{display:flex;align-items:center;gap:var(--s3);min-height:72px}
 .brand{display:inline-flex;align-items:center;gap:12px;margin-right:auto;min-height:44px}
 .brand__mark{width:36px;height:36px;flex:none}
-.brand__name{font-family:var(--display);font-size:1rem;letter-spacing:.3em;text-transform:uppercase;padding-left:.3em}
+.brand__name{font-family:var(--display);font-size:var(--f3);letter-spacing:.3em;text-transform:uppercase;padding-left:.3em}
 .nav{display:flex;gap:26px}
-.nav a{font-size:0.85rem;color:var(--cream-dim);transition:color .2s var(--ease)}
+.nav a{font-size:var(--f2);color:var(--cream-dim);transition:color .2s var(--ease)}
 .nav a:hover{color:var(--cream)}
-.top__tel{font-weight:600;font-size:1rem;white-space:nowrap}
-.top .btn{min-height:44px;padding:0 20px;font-size:0.85rem}
+.top__tel{font-weight:600;font-size:var(--f3);white-space:nowrap;display:inline-flex;align-items:center;min-height:46px}
+/* цель под палец: ссылка с номером была высотой 21 px. Только там, где номер
+   выводится строкой: общее правило перебивало display:none у шапки */
+.where__item a[href^="tel:"],.foot a[href^="tel:"]{display:inline-flex;align-items:center;min-height:46px}
+.top .btn{min-height:44px;padding:0 20px;font-size:var(--f2)}
 .burger{display:none;width:44px;height:44px;background:none;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;align-items:center;justify-content:center}
 .burger span{display:block;width:18px;height:1.5px;background:var(--cream);position:relative}
 .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:var(--cream)}
@@ -110,9 +131,10 @@ section[id],footer{scroll-margin-top:84px}
 
 .drawer{position:fixed;inset:0;z-index:70;overscroll-behavior:contain;background:var(--sugar);display:flex;flex-direction:column;justify-content:center;gap:var(--s2);padding:var(--pad);transform:translateY(-101%);transition:transform .45s var(--ease)}
 .drawer[data-open="true"]{transform:translateY(0)}
-.drawer a{font-family:var(--display);font-size:clamp(1.7rem,7vw,2.3rem);display:flex;align-items:center;min-height:48px}
-.drawer__tel{margin-top:var(--s3);color:var(--caramel)}
-.drawer__close{position:absolute;top:20px;right:var(--pad);width:44px;height:44px;background:none;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;font-size:1.45rem;line-height:1}
+/* пункты меню и вопросы нажимаются — по правилу ролей они шрифтом текста */
+.drawer a{font-family:var(--text);font-weight:600;font-size:var(--f5);letter-spacing:-.01em;display:flex;align-items:center;min-height:48px}
+.drawer__tel{margin-top:var(--s3);color:var(--caramel);min-height:44px}
+.drawer__close{position:absolute;top:20px;right:var(--pad);width:44px;height:44px;background:none;border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;font-size:var(--f4);line-height:1}
 
 /* ============ ГЕРОЙ ============ */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
@@ -126,16 +148,17 @@ section[id],footer{scroll-margin-top:84px}
     radial-gradient(96% 74% at 12% 56%,rgba(16,12,9,.92),transparent 60%);
 }
 .hero__in{position:relative;z-index:2;padding-block:clamp(96px,12vh,110px) var(--s4)}
-.hero h1{font-size:clamp(2.3rem,6.4vw,5rem);line-height:1.04;max-width:15ch;text-wrap:balance}
+.hero h1{font-size:var(--f6);line-height:1.04;max-width:15ch;text-wrap:balance}
 .hero h1 em{font-style:normal;color:var(--caramel)}
-.hero__sub{margin-top:var(--s3);max-width:38ch;color:#D9CBB8;font-size:clamp(1rem,1.4vw,1.22rem)}
+.hero__sub{margin-top:var(--s3);max-width:38ch;color:#D9CBB8;font-size:var(--f4)}
+@media (max-width:700px){.hero__sub{font-size:var(--f3)}}
 .hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--s4)}
 
 /* полоса фактов под героем */
 .strip{background:var(--cocoa);border-bottom:1px solid var(--line-soft)}
 .strip__in{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);padding-block:var(--s3)}
-.strip div b{display:block;font-weight:600;font-size:1rem}
-.strip div span{display:block;margin-top:2px;font-size:0.85rem;color:var(--cream-dim)}
+.strip div b{display:block;font-weight:600;font-size:var(--f3)}
+.strip div span{display:block;margin-top:2px;font-size:var(--f2);color:var(--cream-dim)}
 @media (max-width:760px){.strip__in{grid-template-columns:1fr 1fr;gap:18px}}
 
 /* контент виден по умолчанию; скрывает только скрипт, и только то, что ниже экрана */
@@ -160,7 +183,7 @@ section[id],footer{scroll-margin-top:84px}
 .tabs{display:flex;flex-wrap:wrap;gap:8px}
 .tab{
   min-height:44px;padding:0 19px;border:1px solid var(--line);border-radius:100px;
-  background:transparent;color:var(--cream-dim);font-size:0.85rem;font-weight:500;cursor:pointer;
+  background:transparent;color:var(--cream-dim);font-size:var(--f2);font-weight:600;cursor:pointer;
   transition:color .2s var(--ease),border-color .2s var(--ease),background .2s var(--ease);
 }
 .tab:hover{color:var(--cream);border-color:#4A3627}
@@ -170,13 +193,13 @@ section[id],footer{scroll-margin-top:84px}
 @media (max-width:720px){.sheet{grid-template-columns:1fr}}
 .li{display:flex;align-items:baseline;gap:10px;padding-block:13px}
 .li__name{flex:none;max-width:64%}
-.li__name b{display:block;font-weight:500;font-size:1rem}
-.li__name span{display:block;margin-top:2px;font-size:.85rem;color:var(--cream-dim)}
+.li__name b{display:block;font-weight:600;font-size:var(--f3)}
+.li__name span{display:block;margin-top:2px;font-size:var(--f2);color:var(--cream-dim)}
 .li__dots{flex:1;min-width:16px;border-bottom:1px dotted #3D2C20;transform:translateY(-5px)}
-.li__cost{flex:none;font-weight:600;font-size:1rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.li__cost{flex:none;font-weight:600;font-size:var(--f3);font-variant-numeric:tabular-nums;white-space:nowrap}
 .price__note{
   margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line-soft);
-  color:var(--cream-dim);font-size:1rem;max-width:70ch;
+  color:var(--cream-dim);font-size:var(--f3);max-width:70ch;
 }
 .price__note b{color:var(--cream);font-weight:600}
 
@@ -186,36 +209,36 @@ section[id],footer{scroll-margin-top:84px}
 @media (max-width:960px){.tone__grid{grid-template-columns:minmax(0,1fr)}}
 .tone__panel{display:flex;flex-direction:column;gap:var(--s4)}
 .tone fieldset{border:0;padding:0;margin:0}
-.tone legend{padding:0;margin-bottom:13px;font-size:0.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-dim)}
+.tone legend{padding:0;margin-bottom:13px;font-size:var(--f1);font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--cream-dim)}
 .swatches{display:grid;grid-template-columns:repeat(10,1fr);gap:7px}
 .sw{background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;gap:7px}
-.sw i{display:block;aspect-ratio:1/1.45;border-radius:3px;background:var(--tone);border:1px solid rgba(240,229,214,.22);
+.sw i{display:block;aspect-ratio:1/1.45;border-radius:var(--radius);background:var(--tone);border:1px solid rgba(240,229,214,.22);
   transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease)}
 .sw:hover i{transform:translateY(-3px);border-color:rgba(240,229,214,.55)}
-.sw span{font-size:0.7rem;font-weight:600;font-variant-numeric:tabular-nums;color:var(--cream-dim);transition:color .18s var(--ease)}
+.sw span{font-size:var(--f1);font-weight:600;font-variant-numeric:tabular-nums;color:var(--cream-dim);transition:color .18s var(--ease)}
 .sw[aria-checked="true"] i{border-color:var(--caramel);box-shadow:0 0 0 2px var(--caramel);transform:translateY(-3px)}
 .sw[aria-checked="true"] span{color:var(--caramel)}
 .sw:focus-visible{outline:none}
 .sw:focus-visible i{outline:2px solid var(--cream);outline-offset:3px}
-.scale-ends{display:flex;justify-content:space-between;margin-top:8px;font-size:0.7rem;color:var(--cream-dim)}
-@media (max-width:560px){.swatches{gap:5px}.sw i{aspect-ratio:1/2.1}.sw span{font-size:.7rem}}
+.scale-ends{display:flex;justify-content:space-between;margin-top:8px;font-size:var(--f1);color:var(--cream-dim)}
+@media (max-width:560px){.swatches{gap:5px}.sw i{aspect-ratio:1/2.1}.sw span{font-size:var(--f1)}}
 
 .tone__out{border:1px solid var(--line);border-radius:var(--radius);background:var(--sugar);padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:var(--s3)}
-.tone__verdict{font-family:var(--display);font-size:clamp(1.22rem,2.4vw,1.7rem);line-height:1.22;text-wrap:balance}
+.tone__verdict{font-family:var(--display);font-size:var(--f4);line-height:1.22;text-wrap:balance}
 .tone__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);padding-block:var(--s3);border-block:1px solid var(--line-soft)}
-.stat b{display:block;white-space:nowrap;font-family:var(--display);font-size:clamp(1.45rem,2.8vw,2rem);color:var(--caramel);line-height:1;font-variant-numeric:tabular-nums}
-.stat span{display:block;margin-top:7px;font-size:0.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim)}
+.stat b{display:block;white-space:nowrap;font-family:var(--display);font-weight:400;font-size:var(--f4);color:var(--caramel);line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:7px;font-size:var(--f1);letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim)}
 @media (max-width:420px){.tone__stats{grid-template-columns:1fr;gap:var(--s3)}}
 .tone__jump{display:flex;align-items:center;gap:13px}
 .tone__chip{display:flex;align-items:center;gap:10px;white-space:nowrap}
 .tone__chip i{width:32px;height:32px;border-radius:50%;background:var(--tone,#68452E);border:1px solid rgba(240,229,214,.28);flex:none;transition:background .35s var(--ease)}
-.tone__chip span{font-size:0.85rem;color:var(--cream-dim);line-height:1.25}
+.tone__chip span{font-size:var(--f2);color:var(--cream-dim);line-height:1.25}
 .tone__chip b{display:block;color:var(--cream);font-weight:600;font-variant-numeric:tabular-nums}
 .tone__arrow{flex:1;height:1px;position:relative;background:linear-gradient(90deg,var(--from,#68452E),var(--to,#C69C6B))}
 .tone__arrow::after{content:"";position:absolute;right:0;top:-3px;border:3.5px solid transparent;border-left-color:var(--to,#C69C6B)}
 @media (max-width:400px){.tone__jump{flex-wrap:wrap}.tone__arrow{display:none}}
-.tone__why{font-size:1rem;color:#C4B3A0}
-.tone__note{display:flex;gap:11px;padding:13px 15px;border-radius:var(--radius);background:rgba(138,54,70,.16);border:1px solid rgba(138,54,70,.5);font-size:0.85rem;color:#E8CFC8}
+.tone__why{font-size:var(--f3);color:#C4B3A0}
+.tone__note{display:flex;gap:11px;padding:13px 15px;border-radius:var(--radius);background:rgba(138,54,70,.16);border:1px solid rgba(138,54,70,.5);font-size:var(--f2);color:#E8CFC8}
 .tone__note svg{flex:none;margin-top:2px}
 .tone__out .btn{align-self:flex-start}
 
@@ -226,9 +249,9 @@ section[id],footer{scroll-margin-top:84px}
 .card__photo{position:relative;overflow:hidden;border-radius:var(--radius);background:var(--cocoa-hi);aspect-ratio:7/9}
 .card__photo img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease);filter:saturate(.9)}
 .card:hover .card__photo img{transform:scale(1.04)}
-.card h3{margin-top:15px;font-size:1.22rem}
-.card__role{margin-top:4px;font-size:0.85rem;color:var(--caramel)}
-.card__does{margin-top:9px;font-size:1rem;color:var(--cream-dim)}
+.card h3{margin-top:15px;font-size:var(--f4)}
+.card__role{margin-top:4px;font-size:var(--f2);color:var(--caramel)}
+.card__does{margin-top:9px;font-size:var(--f3);color:var(--cream-dim)}
 
 /* ============ РАБОТЫ ============ */
 .works{background:var(--cocoa);border-block:1px solid var(--line-soft)}
@@ -237,7 +260,7 @@ section[id],footer{scroll-margin-top:84px}
 .works__grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
 .works__grid figure:hover img{transform:scale(1.05)}
 .works__grid figcaption{position:absolute;inset:auto 0 0;padding:26px 15px 13px;
-  background:linear-gradient(180deg,transparent,rgba(16,12,9,.9));font-size:.85rem;
+  background:linear-gradient(180deg,transparent,rgba(16,12,9,.9));font-size:var(--f2);
   display:flex;justify-content:space-between;gap:10px;align-items:flex-end}
 .works__grid figcaption span{color:var(--caramel);font-variant-numeric:tabular-nums;white-space:nowrap}
 .w-a,.w-b{grid-column:span 3;grid-row:span 2}
@@ -249,10 +272,15 @@ section[id],footer{scroll-margin-top:84px}
 @media (max-width:520px){.works__grid{grid-template-columns:1fr;grid-auto-rows:clamp(165px,45vw,230px)}}
 
 /* отзывы лентой под работами */
-.says{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,32px);margin-top:clamp(36px,5vw,56px);padding-top:var(--s4);border-top:1px solid var(--line-soft)}
-@media (max-width:840px){.says{grid-template-columns:1fr;gap:var(--s3)}}
-.say p{font-size:1rem;color:#CFBFAB}
-.say footer{margin-top:11px;font-size:0.85rem;color:var(--cream-dim)}
+/* левый край цитаты был на 5–10 px левее плитки над ней: сетка та же, что у работ */
+.says{display:grid;grid-template-columns:repeat(6,1fr);column-gap:clamp(10px,1.3vw,15px);row-gap:var(--s3);margin-top:clamp(36px,5vw,56px);padding-top:var(--s4);border-top:1px solid var(--line-soft)}
+@media (max-width:840px){.says{grid-template-columns:1fr;gap:var(--s3)}.say{grid-column:span 1}}
+.say{margin:0}
+.say{grid-column:span 2}
+/* в ряду уже 1200 px цитата ложилась по 27 знаков: ступень вниз даёт 31 */
+@media (min-width:841px) and (max-width:1199px){#works .say p{font-size:var(--f2)}}
+.say p{font-size:var(--f3);color:#CFBFAB}
+.say footer{margin-top:11px;font-size:var(--f2);color:var(--cream-dim)}
 .say footer b{color:var(--cream);font-weight:600}
 
 /* ============ ПЕРВЫЙ ВИЗИТ ============ */
@@ -263,17 +291,24 @@ section[id],footer{scroll-margin-top:84px}
 @media (max-width:900px){.visit__pic{aspect-ratio:16/10}}
 .step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s3);padding-block:20px;border-top:1px solid var(--line-soft)}
 .step:last-child{border-bottom:1px solid var(--line-soft)}
-.step__t{font-family:var(--display);font-size:1rem;color:var(--caramel);font-variant-numeric:tabular-nums;white-space:nowrap;padding-top:2px;min-width:6ch}
-.step h3{font-size:1rem}
-.step p{margin-top:6px;font-size:1rem;color:var(--cream-dim)}
+.step__t{font-family:var(--display);font-size:var(--f3);color:var(--caramel);font-variant-numeric:tabular-nums;white-space:nowrap;padding-top:2px;min-width:6ch}
+.step h3{font-size:var(--f3)}
+.step p{margin-top:6px;font-size:var(--f3);color:var(--cream-dim)}
 @media (max-width:520px){.step{grid-template-columns:1fr;gap:5px}}
 
 /* ============ ВОПРОСЫ ============ */
 .faq{background:var(--cocoa);border-block:1px solid var(--line-soft)}
 .faq__list{border-top:1px solid var(--line-soft);max-width:900px}
+/* одно слово заголовка и колонка 900 px оставляли справа пустую треть полосы:
+   на широком экране заголовок уходит в левую колонку, вопросы — в правую */
+@media (min-width:1000px){
+  #faq .shell{display:grid;grid-template-columns:minmax(200px,1fr) minmax(0,2.4fr);column-gap:clamp(32px,4vw,72px);align-items:start}
+  #faq .sec-head{margin-bottom:0}
+  #faq .faq__list{max-width:none}
+}
 .faq details{border-bottom:1px solid var(--line-soft)}
 .faq summary{display:flex;align-items:flex-start;gap:var(--s3);justify-content:space-between;padding-block:20px;cursor:pointer;list-style:none;
-  font-family:var(--display);font-size:clamp(1rem,1.8vw,1.22rem);line-height:1.35;transition:color .2s var(--ease)}
+  font-family:var(--text);font-weight:600;font-size:var(--f3);line-height:1.35;transition:color .2s var(--ease)}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary:hover{color:var(--caramel)}
 .faq summary::after{content:"";flex:none;width:14px;height:14px;margin-top:7px;
@@ -281,7 +316,7 @@ section[id],footer{scroll-margin-top:84px}
              linear-gradient(var(--caramel),var(--caramel)) center/1.5px 100% no-repeat;
   transition:transform .3s var(--ease)}
 .faq details[open] summary::after{transform:rotate(135deg)}
-.faq__a{padding-bottom:22px;max-width:72ch;color:var(--cream-dim);font-size:1rem}
+.faq__a{padding-bottom:22px;max-width:72ch;color:var(--cream-dim);font-size:var(--f3)}
 
 /* ============ ЗАПИСЬ ============ */
 .book__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:clamp(28px,4vw,64px);align-items:start}
@@ -289,7 +324,7 @@ section[id],footer{scroll-margin-top:84px}
 .form{display:grid;gap:var(--s3)}
 .form > .btn{justify-self:start;padding-inline:38px}
 .field{display:flex;flex-direction:column;gap:7px}
-.field label{font-size:0.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim)}
+.field label{font-size:var(--f2);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim)}
 .field input,.field select,.field textarea{
   min-height:52px;padding:13px 16px;border:1px solid var(--line);border-radius:var(--radius);
   background:var(--cocoa);color:var(--cream);width:100%;transition:border-color .2s var(--ease),background .2s var(--ease)}
@@ -303,11 +338,15 @@ section[id],footer{scroll-margin-top:84px}
 .field select option{background:var(--cocoa);color:var(--cream)}
 .form__two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
 @media (max-width:560px){.form__two{grid-template-columns:1fr}}
-.form__legal{font-size:0.85rem;color:var(--cream-dim)}
+.consent{display:flex;gap:12px;align-items:flex-start;margin:var(--s2) 0;min-height:48px;
+  padding:3px 0;font-size:var(--f2);color:var(--cream-dim);cursor:pointer}
+.consent input{width:22px;height:22px;margin-top:1px;flex:none;accent-color:var(--caramel)}
+.consent a{color:var(--caramel);text-decoration:underline;text-underline-offset:3px}
+.form__legal{font-size:var(--f2);color:var(--cream-dim)}
 .form__legal a{color:var(--caramel);text-decoration:underline;text-underline-offset:3px}
-.form__err{padding:13px 16px;border-radius:var(--radius);background:rgba(138,54,70,.18);border:1px solid rgba(138,54,70,.6);font-size:1rem;color:#F0D2CB}
+.form__err{padding:13px 16px;border-radius:var(--radius);background:rgba(138,54,70,.18);border:1px solid rgba(138,54,70,.6);font-size:var(--f3);color:#F0D2CB}
 .field input[aria-invalid="true"]{border-color:var(--wine)}
-.form__ok{padding:14px 16px;border-radius:var(--radius);background:rgba(222,147,80,.13);border:1px solid var(--caramel);font-size:1rem}
+.form__ok{padding:14px 16px;border-radius:var(--radius);background:rgba(222,147,80,.13);border:1px solid var(--caramel);font-size:var(--f3)}
 
 .where{display:flex;flex-direction:column;gap:var(--s3)}
 .where__map{aspect-ratio:4/3;border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;background:var(--cocoa);
@@ -318,25 +357,25 @@ section[id],footer{scroll-margin-top:84px}
   -webkit-mask-image:radial-gradient(circle at 50% 46%,#000,transparent 72%);
   mask-image:radial-gradient(circle at 50% 46%,#000,transparent 72%)}
 .where__map svg{position:relative;color:var(--caramel)}
-.where__map span{position:relative;font-size:0.85rem;max-width:26ch}
+.where__map span{position:relative;font-size:var(--f2);max-width:26ch}
 .where__item{display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:start;padding-bottom:var(--s3);border-bottom:1px solid var(--line-soft)}
 .where__item:last-child{border-bottom:0;padding-bottom:0}
 .where__item svg{margin-top:3px;color:var(--caramel);flex:none}
-.where__item b{display:block;font-weight:600;font-size:1rem}
-.where__item span{display:block;margin-top:2px;font-size:0.85rem;color:var(--cream-dim)}
+.where__item b{display:block;font-weight:600;font-size:var(--f3)}
+.where__item span{display:block;margin-top:2px;font-size:var(--f2);color:var(--cream-dim)}
 
 /* ============ ПОДВАЛ ============ */
 .foot{background:var(--cocoa);border-top:1px solid var(--line-soft);padding-block:var(--s5) var(--s4)}
 .foot__top{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(2,minmax(0,1fr));gap:var(--s4);padding-bottom:var(--s4);border-bottom:1px solid var(--line-soft)}
 @media (max-width:760px){.foot__top{grid-template-columns:1fr;gap:var(--s3)}}
-.foot__slogan{margin-top:var(--s2);color:var(--cream-dim);font-size:1rem;max-width:32ch}
-.foot h4{font-size:0.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim);font-family:var(--text);font-weight:600;margin-bottom:13px}
-.foot li{margin-bottom:9px;font-size:1rem}
+.foot__slogan{margin-top:var(--s2);color:var(--cream-dim);font-size:var(--f3);max-width:32ch}
+.foot h3,.foot h4{font-size:var(--f2);letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim);font-family:var(--text);font-weight:600;margin-bottom:13px}
+.foot li{margin-bottom:9px;font-size:var(--f3)}
 .foot li a{color:var(--cream-dim);transition:color .2s var(--ease)}
 .foot li a:hover{color:var(--caramel)}
-.foot__bottom{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);justify-content:space-between;padding-top:var(--s3);font-size:.85rem;color:#9A8B79}
+.foot__bottom{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);justify-content:space-between;padding-top:var(--s3);font-size:var(--f2);color:#9A8B79}
 .foot__soc{display:flex;gap:10px}
-.foot__soc a{width:40px;height:40px;border:1px solid var(--line);border-radius:var(--radius);display:inline-flex;align-items:center;justify-content:center;color:var(--cream-dim);
+.foot__soc a{width:46px;height:46px;border:1px solid var(--line);border-radius:var(--radius);display:inline-flex;align-items:center;justify-content:center;color:var(--cream-dim);
   transition:color .2s var(--ease),border-color .2s var(--ease),background .2s var(--ease)}
 .foot__soc a:hover{color:var(--caramel);border-color:var(--caramel);background:rgba(222,147,80,.08)}
 
@@ -344,7 +383,7 @@ section[id],footer{scroll-margin-top:84px}
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:55;display:none;gap:8px;
   padding:10px var(--pad) calc(10px + env(safe-area-inset-bottom));
   background:rgba(16,12,9,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line-soft)}
-.dock .btn{flex:1;min-height:48px;padding:0 14px;font-size:0.85rem}
+.dock .btn{flex:1;min-height:48px;padding:0 14px;font-size:var(--f2)}
 @media (max-width:640px){.dock{display:flex}body{padding-bottom:74px}}
 
 /* ============ СПРАВОЧНАЯ ============ */
@@ -353,7 +392,7 @@ section[id],footer{scroll-margin-top:84px}
   position:fixed;right:clamp(16px,2.5vw,32px);bottom:clamp(16px,2.5vw,32px);z-index:58;
   display:inline-flex;align-items:center;gap:11px;min-height:54px;padding:0 22px 0 18px;
   border:1px solid var(--caramel);border-radius:100px;cursor:pointer;
-  background:var(--caramel);color:#160F09;font-weight:600;font-size:1rem;
+  background:var(--caramel);color:#160F09;font-weight:600;font-size:var(--f3);
   box-shadow:0 14px 34px rgba(0,0,0,.5);transition:background .22s var(--ease),transform .22s var(--ease)}
 .bot__open:hover{background:#EBA463;transform:translateY(-2px)}
 .bot__open svg{flex:none}
@@ -381,25 +420,25 @@ section[id],footer{scroll-margin-top:84px}
 @media (prefers-reduced-motion:reduce){.bot{transition:opacity .01s}}
 .bot__head{display:flex;align-items:center;gap:12px;padding:14px 15px;border-bottom:1px solid var(--line-soft);background:var(--cocoa-hi)}
 .bot__mark{width:34px;height:34px;flex:none}
-.bot__head b{display:block;font-size:1rem;font-weight:600}
-.bot__head span{display:block;font-size:0.85rem;color:var(--cream-dim)}
-.bot__close{margin-left:auto;width:36px;height:36px;flex:none;border:1px solid var(--line);border-radius:var(--radius);background:none;cursor:pointer;font-size:1.22rem;line-height:1;color:var(--cream-dim);transition:color .2s var(--ease),border-color .2s var(--ease)}
+.bot__head b{display:block;font-size:var(--f3);font-weight:600}
+.bot__head span{display:block;font-size:var(--f2);color:var(--cream-dim)}
+.bot__close{margin-left:auto;width:46px;height:46px;flex:none;border:1px solid var(--line);border-radius:var(--radius);background:none;cursor:pointer;font-size:var(--f4);line-height:1;color:var(--cream-dim);transition:color .2s var(--ease),border-color .2s var(--ease)}
 .bot__close:hover{color:var(--cream);border-color:#4A3627}
 .bot__feed{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:15px;display:flex;flex-direction:column;gap:11px;scrollbar-width:thin}
 .bot__feed::-webkit-scrollbar{width:5px}
 .bot__feed::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px}
-.msg{max-width:88%;padding:11px 14px;border-radius:11px;font-size:1rem;line-height:1.5;white-space:pre-line}
-.msg--bot{align-self:flex-start;background:var(--cocoa-hi);border:1px solid var(--line-soft);border-bottom-left-radius:3px}
-.msg--me{align-self:flex-end;background:var(--caramel);color:#160F09;border-bottom-right-radius:3px;font-weight:500}
+.msg{max-width:88%;padding:11px 14px;border-radius:11px;font-size:var(--f3);line-height:1.5;white-space:pre-line}
+.msg--bot{align-self:flex-start;background:var(--cocoa-hi);border:1px solid var(--line-soft);border-bottom-left-radius:var(--radius)}
+.msg--me{align-self:flex-end;background:var(--caramel);color:#160F09;border-bottom-right-radius:var(--radius);font-weight:600}
 .bot__chips{display:flex;flex-wrap:wrap;overscroll-behavior:contain;gap:7px;padding:0 15px 12px}
-.bot__chip{padding:8px 13px;border:1px solid var(--line);border-radius:100px;background:transparent;color:var(--cream-dim);font-size:0.85rem;cursor:pointer;
+.bot__chip{padding:8px 15px;min-height:46px;border:1px solid var(--line);border-radius:100px;background:transparent;color:var(--cream-dim);font-size:var(--f2);cursor:pointer;
   transition:color .2s var(--ease),border-color .2s var(--ease),background .2s var(--ease)}
 .bot__chip:hover{color:var(--caramel);border-color:var(--caramel);background:rgba(222,147,80,.08)}
 .bot__ask{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line-soft);background:var(--cocoa-hi)}
-.bot__ask input{flex:1;min-height:44px;padding:10px 14px;border:1px solid var(--line);border-radius:100px;background:var(--sugar);color:var(--cream);font-size:0.85rem}
+.bot__ask input{flex:1;min-height:44px;padding:10px 14px;border:1px solid var(--line);border-radius:100px;background:var(--sugar);color:var(--cream);font-size:var(--f2)}
 .bot__ask input::placeholder{color:#7A6C5D}
 .bot__ask input:focus{outline:none;border-color:var(--caramel)}
-.bot__send{width:44px;height:44px;flex:none;border:0;border-radius:50%;background:var(--caramel);color:#160F09;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .2s var(--ease)}
+.bot__send{min-width:46px;min-height:46px;width:44px;height:44px;flex:none;border:0;border-radius:50%;background:var(--caramel);color:#160F09;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .2s var(--ease)}
 .bot__send:hover{background:#EBA463}
 
 /* цели под палец: в подвале ссылки были высотой 20 px, палец промахивался */
@@ -435,13 +474,13 @@ section[id],footer{scroll-margin-top:84px}
       <a href="#faq">Вопросы</a>
     </nav>
     <!-- ЗАГЛУШКА: телефон -->
-    <a class="top__tel" href="tel:+78112000000">+7 (8112) 00-00-00</a>
+    <a class="top__tel" href="tel:+78112000000">+7 (8112) <span class="nowrap">00-00-00</span></a>
     <a class="btn" href="#book">Записаться</a>
-    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" data-drawer-open><span></span></button>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="drawer" data-drawer-open><span></span></button>
   </div>
 </header>
 
-<div class="drawer" id="drawer" data-open="false" aria-hidden="true">
+<div class="drawer" id="drawer" data-open="false" inert>
   <button class="drawer__close" type="button" aria-label="Закрыть меню" data-drawer-close>&times;</button>
   <a href="#price">Цены</a>
   <a href="#tone">Подбор цвета</a>
@@ -450,20 +489,24 @@ section[id],footer{scroll-margin-top:84px}
   <a href="#faq">Вопросы</a>
   <a href="#book">Записаться</a>
   <!-- ЗАГЛУШКА: телефон -->
-  <a class="drawer__tel" href="tel:+78112000000">+7 (8112) 00-00-00</a>
+  <a class="drawer__tel" href="tel:+78112000000">+7 (8112) <span class="nowrap">00-00-00</span></a>
 </div>
 
 <!-- ===================== ГЕРОЙ ===================== -->
+<main id="main">
+
 <section class="hero" id="hero">
   <div class="hero__media">
     <img src="img/hero-poster.webp" alt="" width="1600" height="900" fetchpriority="high" decoding="async">
-    <video id="heroVideo" poster="img/hero-poster.webp" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+    <video id="heroVideo" poster="img/hero-poster.webp" muted loop playsinline preload="none"
+           disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"
+           aria-hidden="true" tabindex="-1"></video>
   </div>
   <div class="hero__veil"></div>
   <div class="shell hero__in">
     <span class="tag">Парикмахерская в Пскове</span>
     <h1>Сначала <em>считаем</em>, потом красим</h1>
-    <p class="hero__sub">Мастер посмотрит волосы, назовёт сумму и время. Дальше решаете вы.</p>
+    <p class="hero__sub">Мастер посмотрит волосы, назовёт сумму и время, а дальше решаете вы.</p>
     <div class="hero__cta">
       <a class="btn" href="#book">Записаться</a>
       <a class="btn btn--ghost" href="#price">Посмотреть цены</a>
@@ -473,9 +516,9 @@ section[id],footer{scroll-margin-top:84px}
 
 <div class="strip">
   <div class="shell strip__in">
-    <div><b>Пн-Вс, 9:00-21:00</b><span>Без выходных</span></div>
+    <div><b>Пн–Вс, <span class="nowrap">9:00–21:00</span></b><span>Без выходных</span></div>
     <!-- ЗАГЛУШКА: адрес -->
-    <div><b>Октябрьский пр., 00</b><span>2 минуты от остановки</span></div>
+    <div><b>Октябрьский пр., 00</b><span>2 минуты от остановки</span></div>
     <div><b>7 лет</b><span>На одном месте</span></div>
     <div><b>4 мастера</b><span>Женский и мужской зал</span></div>
   </div>
@@ -561,7 +604,7 @@ section[id],footer{scroll-margin-top:84px}
         <h3 class="tone__verdict" id="toneVerdict">Отметьте два тона</h3>
         <div class="tone__stats">
           <div class="stat"><b id="toneVisits">1</b><span>визитов</span></div>
-          <div class="stat"><b id="toneHours">4-5</b><span>часов</span></div>
+          <div class="stat"><b id="toneHours">4–5</b><span>часов</span></div>
           <div class="stat"><b id="tonePrice">6 200 ₽</b><span>от</span></div>
         </div>
         <div class="tone__jump">
@@ -585,32 +628,32 @@ section[id],footer{scroll-margin-top:84px}
   <div class="shell">
     <div class="sec-head">
       <h2 class="h2">Четыре мастера</h2>
-      <p class="lede">Цена зависит от уровня мастера. За ровный однотонный цвет переплачивать колористу незачем.</p>
+      <p class="lede">Цена зависит от мастера. За ровный один тон платить колористу незачем.</p>
     </div>
     <div class="crew__grid">
       <article class="card rise">
         <div class="card__photo"><img src="img/master-1.webp" alt="Ирина Дёмина, колорист" width="700" height="880" loading="lazy" decoding="async"></div>
         <h3>Ирина Дёмина</h3>
         <p class="card__role">Колорист, 14 лет</p>
-        <p class="card__does">Блонд и сложное осветление. Ведёт переходы, которым нужно несколько визитов.</p>
+        <p class="card__does">Блонд, сложное осветление, переходы</p>
       </article>
       <article class="card rise">
         <div class="card__photo"><img src="img/master-2.webp" alt="Марина Ковалёва, стилист по стрижкам" width="700" height="880" loading="lazy" decoding="async"></div>
         <h3>Марина Ковалёва</h3>
         <p class="card__role">Стрижки, 8 лет</p>
-        <p class="card__does">Каре, боб, короткие формы. Работает с седой и непослушным волосом.</p>
+        <p class="card__does">Каре, боб, седой и непослушный волос</p>
       </article>
       <article class="card rise">
         <div class="card__photo"><img src="img/master-3.webp" alt="Алла Никитина, мастер по цвету и уходу" width="700" height="880" loading="lazy" decoding="async"></div>
         <h3>Алла Никитина</h3>
-        <p class="card__role">Цвет и уход, 5 лет</p>
-        <p class="card__does">Один тон, тонирование, кератин. Самый доступный прайс в салоне.</p>
+        <p class="card__role">Цвет и уход, 5 лет · доступный прайс</p>
+        <p class="card__does">Один тон, тонирование, кератин</p>
       </article>
       <article class="card rise">
         <div class="card__photo"><img src="img/master-4.webp" alt="Сергей Шумов, барбер" width="700" height="880" loading="lazy" decoding="async"></div>
         <h3>Сергей Шумов</h3>
         <p class="card__role">Мужской зал, 6 лет</p>
-        <p class="card__does">Стрижки, борода, дети. Начинает ножницами, если ребёнок боится машинки.</p>
+        <p class="card__does">Стрижки, борода, дети без машинки</p>
       </article>
     </div>
   </div>
@@ -653,11 +696,11 @@ section[id],footer{scroll-margin-top:84px}
         <footer><b>Екатерина</b>, выход из чёрного</footer>
       </blockquote>
       <blockquote class="say rise">
-        <p>В прайсе стояло 5 часов на AirTouch. Просидела 5 часов 10 минут. Впервые смогла спланировать день.</p>
+        <p>В прайсе стояло 5 часов на AirTouch, просидела 5 часов 10 минут. Впервые смогла спланировать день.</p>
         <footer><b>Ольга</b>, AirTouch</footer>
       </blockquote>
       <blockquote class="say rise">
-        <p>Сын четыре года боялся машинки. Сергей полстрижки сделал ножницами и дал её подержать. Теперь сам просится.</p>
+        <p>Сын четыре года боялся машинки. Сергей полстрижки сделал ножницами и дал её подержать, и теперь сын сам просится.</p>
         <footer><b>Дмитрий</b>, детская стрижка</footer>
       </blockquote>
     </div>
@@ -669,7 +712,7 @@ section[id],footer{scroll-margin-top:84px}
   <div class="shell">
     <div class="sec-head">
       <h2 class="h2">Как проходит первый визит</h2>
-      <p class="lede">Консультация бесплатная. Можно уйти после того, как услышите цену.</p>
+      <p class="lede">Консультация бесплатная: можно уйти сразу после того, как услышите цену.</p>
     </div>
     <div class="visit__grid">
       <div class="visit__pic rise">
@@ -716,7 +759,7 @@ section[id],footer{scroll-margin-top:84px}
     <div class="faq__list">
       <details>
         <summary>Опоздала на 15 минут, меня примут?</summary>
-        <div class="faq__a">До 15 минут ждём и делаем всё. От 15 до 30 успеем часть услуги. Больше получаса переносим. Штрафов нет.</div>
+        <div class="faq__a">До 15 минут ждём и делаем всё, от 15 до 30 успеем часть услуги, больше получаса переносим. Штрафов за перенос не берём.</div>
       </details>
       <details>
         <summary>Почему из чёрного в блонд нельзя за один раз?</summary>
@@ -737,7 +780,7 @@ section[id],footer{scroll-margin-top:84px}
       <details>
         <summary>Как оплатить и где припарковаться?</summary>
         <!-- ЗАГЛУШКА: парковка -->
-        <div class="faq__a">Наличные, карта, СБП. Во дворе шесть бесплатных мест.</div>
+        <div class="faq__a">Принимаем наличные, карту и СБП. Во дворе шесть бесплатных мест.</div>
       </details>
     </div>
   </div>
@@ -793,11 +836,14 @@ section[id],footer{scroll-margin-top:84px}
           <label for="fWhen">Когда удобно</label>
           <textarea id="fWhen" name="when" placeholder="Например: в будни после 18:00…"></textarea>
         </div>
+        <label class="consent">
+          <input type="checkbox" id="fOk" name="consent" required>
+          <span>Согласен на <a href="soglasie.html" target="_blank" rel="noopener">обработку персональных данных</a>. Номер нужен только для звонка по этой записи.</span>
+        </label>
         <button class="btn" type="submit">Отправить заявку</button>
         <p class="form__err" id="formErr" hidden role="alert"></p>
-        <p class="form__ok" id="formOk" hidden role="status">Заявка принята. Перезвоним в течение 15 минут.</p>
-        <!-- ЗАГЛУШКА: ссылка на политику -->
-        <p class="form__legal">Нажимая кнопку, вы соглашаетесь на <a href="#book">обработку персональных данных</a>. Номер нужен только для звонка по этой записи.</p>
+        <p class="form__ok" id="formOk" hidden role="status">Заявку приняли, перезвоним в течение 15 минут.</p>
+        <p class="form__legal">Как салон хранит заявку и когда её удаляет — в <a href="policy.html">политике обработки данных</a>.</p>
       </form>
 
       <div class="where rise">
@@ -810,7 +856,7 @@ section[id],footer{scroll-margin-top:84px}
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
           <div>
             <!-- ЗАГЛУШКА: адрес -->
-            <b>Псков, Октябрьский пр., 00</b>
+            <b>Псков, Октябрьский пр., 00</b>
             <span>Вход со двора, вторая дверь</span>
           </div>
         </div>
@@ -818,14 +864,14 @@ section[id],footer{scroll-margin-top:84px}
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4.5 5.5c0 8 6 14 14 14l2-3.4-4.2-2.1-2 2a14.5 14.5 0 0 1-6.3-6.3l2-2L7.9 3.5z"/></svg>
           <div>
             <!-- ЗАГЛУШКА: телефон -->
-            <b><a href="tel:+78112000000">+7 (8112) 00-00-00</a></b>
+            <b><a href="tel:+78112000000">+7 (8112) <span class="nowrap">00-00-00</span></a></b>
             <span>Звонки и мессенджеры с 9:00 до 21:00</span>
           </div>
         </div>
         <div class="where__item">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.4 2"/></svg>
           <div>
-            <b>Пн-Вс, 9:00-21:00</b>
+            <b>Пн–Вс, <span class="nowrap">9:00–21:00</span></b>
             <span>Последняя запись на окрашивание в 16:00</span>
           </div>
         </div>
@@ -833,6 +879,8 @@ section[id],footer{scroll-margin-top:84px}
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ===================== ПОДВАЛ ===================== -->
 <footer class="foot">
@@ -849,7 +897,7 @@ section[id],footer{scroll-margin-top:84px}
           </svg>
           <span class="brand__name">Карамель</span>
         </a>
-        <p class="foot__slogan">Парикмахерская в Пскове. Стрижки, цвет и уход седьмой год на одном месте.</p>
+        <p class="foot__slogan">Парикмахерская в Пскове: стрижки, цвет и уход седьмой год на одном месте.</p>
       </div>
       <div>
         <h3>Разделы</h3>
@@ -865,9 +913,11 @@ section[id],footer{scroll-margin-top:84px}
         <h3>Контакты</h3>
         <ul>
           <!-- ЗАГЛУШКА: телефон и адрес -->
-          <li><a href="tel:+78112000000">+7 (8112) 00-00-00</a></li>
-          <li><a href="#book">Псков, Октябрьский пр., 00</a></li>
-          <li><a href="#book">Пн-Вс, 9:00-21:00</a></li>
+          <li><a href="tel:+78112000000">+7 (8112) <span class="nowrap">00-00-00</span></a></li>
+          <li><a href="#book">Псков, Октябрьский пр., 00</a></li>
+          <li><a href="policy.html">Политика обработки данных</a></li>
+          <li><a href="soglasie.html">Согласие на обработку данных</a></li>
+          <li><a href="#book">Пн–Вс, <span class="nowrap">9:00–21:00</span></a></li>
         </ul>
         <!-- ЗАГЛУШКА: ссылки на соцсети -->
         <div class="foot__soc">
@@ -878,13 +928,13 @@ section[id],footer{scroll-margin-top:84px}
       </div>
     </div>
     <div class="foot__bottom">
-      <span>© 2026 Парикмахерская «Карамель», Псков</span>
+      <span>© 2026 · Парикмахерская «Карамель», Псков · ИП Фамилия И. О., ИНН 602700123456, ОГРНИП 304602733500123</span>
       <span>Цены справочные и не являются публичной офертой</span>
     </div>
   </div>
 </footer>
 
-<div class="dock">
+<aside class="dock" aria-label="Быстрая запись">
   <!-- ЗАГЛУШКА: телефон -->
   <a class="btn btn--ghost" href="tel:+78112000000">Позвонить</a>
   <a class="btn" href="#book">Записаться</a>
@@ -896,7 +946,7 @@ section[id],footer{scroll-margin-top:84px}
   <i>Задать вопрос</i>
 </button>
 
-<div class="bot" id="bot" role="dialog" aria-modal="false" aria-labelledby="botTitle" data-open="false">
+<div class="bot" id="bot" role="dialog" aria-modal="false" aria-labelledby="botTitle" data-open="false" inert>
   <div class="bot__head">
     <svg class="bot__mark" viewBox="0 0 48 48" aria-hidden="true">
       <rect width="48" height="48" rx="10" fill="#241B15"/>
@@ -939,12 +989,16 @@ section[id],footer{scroll-margin-top:84px}
   var drawer = $("#drawer"), burger = $("[data-drawer-open]");
   var setDrawer = function (open) {
     drawer.dataset.open = open ? "true" : "false";
-    drawer.setAttribute("aria-hidden", open ? "false" : "true");
+    /* inert вместо aria-hidden: закрытое меню лежит поверх страницы и ловило Tab,
+       а всё под ним читалось как «фокус ушёл под другой блок» */
+    if (open) drawer.removeAttribute("inert"); else drawer.setAttribute("inert", "");
     burger.setAttribute("aria-expanded", open ? "true" : "false");
     document.body.style.overflow = open ? "hidden" : "";
-    if (open) { var f = drawer.querySelector("a"); if (f) f.focus(); } else { burger.focus(); }
+    /* фокус на первый элемент меню по порядку разметки — это кнопка закрытия:
+       иначе следующим по Tab оказывался «×», и человек выходил из меню назад */
+    if (open) { var f = drawer.querySelector("button, a"); if (f) f.focus(); } else { burger.focus(); }
   };
-  burger.addEventListener("click", function () { setDrawer(true); });
+  burger.addEventListener("click", function () { setDrawer(drawer.dataset.open !== "true"); });
   $("[data-drawer-close]").addEventListener("click", function () { setDrawer(false); });
   $$("#drawer a").forEach(function (a) { a.addEventListener("click", function () { setDrawer(false); }); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && drawer.dataset.open === "true") setDrawer(false); });
@@ -1056,13 +1110,13 @@ section[id],footer{scroll-margin-top:84px}
       note: (from >= 8 && to <= 5) ? "Из блонда в тёмное красят в два этапа. Сначала волос заполняют тёплым пигментом, иначе цвет уйдёт в зелень." : null };
     if (d <= 2) return { verdict: "Один визит: " + a + " в " + b, visits: "1", hours: "2,5-3", price: "3 800 ₽",
       why: "Разница в " + d + (d === 1 ? " тон берётся" : " тона берутся") + " за одно нанесение. Осветление и тонирование в тот же день.", note: null };
-    if (d <= 4) return { verdict: "Один визит, но длинный", visits: "1", hours: "4-5", price: "6 200 ₽",
-      why: "Четыре тона это верхняя граница за посещение. Мастер начнёт с тест-пряди и остановится на трёх, если волос отзовётся плохо.",
+    if (d <= 4) return { verdict: "Один визит, но длинный", visits: "1", hours: "4–5", price: "6 200 ₽",
+      why: "Четыре тона это верхняя граница за посещение. Мастер начнёт с тест-пряди и остановится на трёх, если волос отзовётся плохо.",
       note: (from <= 3) ? "С тёмной базы часто нужна смывка пигмента: плюс 2,5 часа и 3 800 ₽. Решает тест-прядь." : null };
-    if (d <= 7) return { verdict: "Два визита с перерывом в месяц", visits: "2", hours: "4-5", price: "9 500 ₽",
+    if (d <= 7) return { verdict: "Два визита с перерывом в месяц", visits: "2", hours: "4–5", price: "9 500 ₽",
       why: "За раз волос осветляется на 3 тона. Разница в " + d + " тонов делится пополам, между визитами волос восстанавливается.",
       note: "Между визитами вы ходите с промежуточным цветом. Его тонируют так, чтобы он выглядел законченным." };
-    return { verdict: "Три визита, около двух месяцев", visits: "3", hours: "4-5", price: "14 000 ₽",
+    return { verdict: "Три визита, около двух месяцев", visits: "3", hours: "4–5", price: "14 000 ₽",
       why: "Путь длиной в " + d + " тонов. Каждый визит поднимает 3 тона, между ними месяц на восстановление.",
       note: "Салон, который обещает такое за один день, вернёт вам волосы, которые придётся отстригать." };
   }
@@ -1109,6 +1163,9 @@ section[id],footer{scroll-margin-top:84px}
     };
     if (!name.value.trim()) return fail(name, "Напишите, как к вам обращаться.");
     if (tel.value.replace(/\D/g, "").length < 10) return fail(tel, "Проверьте номер: нужно 10 цифр после кода страны.");
+    var ok = $("#fOk");
+    if (ok && !ok.checked) return fail(ok, "Отметьте согласие на обработку данных: без него заявка не уходит.");
+    if (ok) ok.removeAttribute("aria-invalid");
     err.hidden = true;
     name.removeAttribute("aria-invalid"); tel.removeAttribute("aria-invalid");
     $("#formOk").hidden = false;
@@ -1198,6 +1255,8 @@ section[id],footer{scroll-margin-top:84px}
   var botStarted = false;
   function toggleBot(open) {
     botEl.dataset.open = open ? "true" : "false";
+    /* закрытая панель прозрачна, но её кнопки оставались в обходе по Tab */
+    if (open) botEl.removeAttribute("inert"); else botEl.setAttribute("inert", "");
     botOpen.dataset.hidden = open ? "true" : "false";
     botOpen.setAttribute("aria-expanded", open ? "true" : "false");
     if (open) {
@@ -1205,7 +1264,7 @@ section[id],footer{scroll-margin-top:84px}
       setTimeout(function () { $("#botInput").focus(); }, 300);
     } else botOpen.focus();
   }
-  botOpen.addEventListener("click", function () { toggleBot(true); });
+  botOpen.addEventListener("click", function () { toggleBot(botEl.dataset.open !== "true"); });
   $("#botClose").addEventListener("click", function () { toggleBot(false); });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && botEl.dataset.open === "true") toggleBot(false);
