@@ -406,6 +406,9 @@ section[id],footer{scroll-margin-top:84px}
 @media(max-width:760px){
   footer a, .ftr a, .foot a{display:inline-flex;align-items:center;min-height:44px}
 }
+
+/* длинная надпись на 320 px ломалась на строки, прижатые влево */
+.btn, .btn-main, a.btn, button.btn{text-align:center;line-height:1.25}
 </style>
 </head>
 <body>
@@ -460,7 +463,7 @@ section[id],footer{scroll-margin-top:84px}
   <div class="shell hero__in">
     <span class="tag">Парикмахерская в Пскове</span>
     <h1>Сначала <em>считаем</em>, потом красим</h1>
-    <p class="hero__sub">Мастер посмотрит волосы, назовёт сумму и время. Дальше решаете вы.</p>
+    <p class="hero__sub">Мастер посмотрит волосы, назовёт сумму и время. Дальше решаете вы.</p>
     <div class="hero__cta">
       <a class="btn" href="#book">Записаться</a>
       <a class="btn btn--ghost" href="#price">Посмотреть цены</a>
@@ -527,7 +530,7 @@ section[id],footer{scroll-margin-top:84px}
       <div class="li"><div class="li__name"><b>Детская до 7 лет</b><span>40 мин</span></div><i class="li__dots"></i><div class="li__cost">800 ₽</div></div>
     </div>
 
-    <p class="price__note"><b>В цену входят</b> мытьё, сушка, укладка после стрижки и сам краситель. На длину ниже лопаток уходит два тюбика вместо одного: мастер скажет об этом до начала.</p>
+    <p class="price__note"><b>В цену входят</b> мытьё, сушка, укладка после стрижки и сам краситель. На длину ниже лопаток уходит два тюбика вместо одного: мастер скажет об этом до начала.</p>
   </div>
 </section>
 
@@ -537,7 +540,7 @@ section[id],footer{scroll-margin-top:84px}
     <div class="sec-head">
       <span class="tag">Подбор цвета</span>
       <h2 class="h2">Путь до цвета</h2>
-      <p class="lede">Отметьте свой тон и желаемый. Расчёт покажет, за сколько визитов туда дойти.</p>
+      <p class="lede">Отметьте свой тон и желаемый. Расчёт покажет, за сколько визитов туда дойти.</p>
     </div>
 
     <div class="tone__grid">
@@ -566,7 +569,7 @@ section[id],footer{scroll-margin-top:84px}
           <span class="tone__arrow" id="toneArrow" aria-hidden="true"></span>
           <span class="tone__chip"><i id="chipTo"></i><span>цель<b id="chipToName"></b></span></span>
         </div>
-        <p class="tone__why" id="toneWhy">Волос осветляется на 3 тона за визит. Дальше нужен перерыв, иначе он начнёт рваться.</p>
+        <p class="tone__why" id="toneWhy">Волос осветляется на 3 тона за визит. Дальше нужен перерыв, иначе он начнёт рваться.</p>
         <div class="tone__note" id="toneNote" hidden>
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9.2"/></svg>
           <span id="toneNoteText"></span>
@@ -650,11 +653,11 @@ section[id],footer{scroll-margin-top:84px}
         <footer><b>Екатерина</b>, выход из чёрного</footer>
       </blockquote>
       <blockquote class="say rise">
-        <p>В прайсе стояло 5 часов на AirTouch. Просидела 5 часов 10 минут. Впервые смогла спланировать день.</p>
+        <p>В прайсе стояло 5 часов на AirTouch. Просидела 5 часов 10 минут. Впервые смогла спланировать день.</p>
         <footer><b>Ольга</b>, AirTouch</footer>
       </blockquote>
       <blockquote class="say rise">
-        <p>Сын четыре года боялся машинки. Сергей полстрижки сделал ножницами и дал её подержать. Теперь сам просится.</p>
+        <p>Сын четыре года боялся машинки. Сергей полстрижки сделал ножницами и дал её подержать. Теперь сам просится.</p>
         <footer><b>Дмитрий</b>, детская стрижка</footer>
       </blockquote>
     </div>
@@ -691,14 +694,14 @@ section[id],footer{scroll-margin-top:84px}
           <div class="step__t">15 мин</div>
           <div>
             <h3>Тест-прядь, если идём в светлое</h3>
-            <p>Мастер осветляет одну прядь у затылка. Двадцать минут вместо сюрприза на всей голове.</p>
+            <p>Мастер осветляет одну прядь у затылка. Двадцать минут вместо сюрприза на всей голове.</p>
           </div>
         </article>
         <article class="step rise">
           <div class="step__t">В конце</div>
           <div>
             <h3>Говорим, когда возвращаться</h3>
-            <p>Корни заметны к четвёртой неделе, тонирование живёт 5 моек. И скажем, какой уход покупать не нужно.</p>
+            <p>Корни заметны к четвёртой неделе, тонирование живёт 5 моек. И скажем, какой уход покупать не нужно.</p>
           </div>
         </article>
       </div>
@@ -794,7 +797,7 @@ section[id],footer{scroll-margin-top:84px}
         <p class="form__err" id="formErr" hidden role="alert"></p>
         <p class="form__ok" id="formOk" hidden role="status">Заявка принята. Перезвоним в течение 15 минут.</p>
         <!-- ЗАГЛУШКА: ссылка на политику -->
-        <p class="form__legal">Нажимая кнопку, вы соглашаетесь на <a href="#book">обработку персональных данных</a>. Номер нужен только для звонка по этой записи.</p>
+        <p class="form__legal">Нажимая кнопку, вы соглашаетесь на <a href="#book">обработку персональных данных</a>. Номер нужен только для звонка по этой записи.</p>
       </form>
 
       <div class="where rise">
@@ -1254,6 +1257,27 @@ section[id],footer{scroll-margin-top:84px}
     }
   }
 
+})();
+</script>
+
+<script>
+/* после «Записаться» страница доезжала до формы, а фокус оставался на body:
+   с клавиатуры человек продолжал табать по странице, а не заполнять поля */
+(function(){
+  var form = document.querySelector('form');
+  if (!form) return;
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target || !target.contains(form) && target !== form && !form.contains(target)) return;
+    setTimeout(function(){
+      var field = form.querySelector('input:not([type=hidden]):not([disabled]), textarea, select');
+      if (field) field.focus({ preventScroll: true });
+    }, 420);
+  });
 })();
 </script>
 </body>
